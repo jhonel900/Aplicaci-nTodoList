@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'FondoPantalla.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,10 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'aplicacion Todo List',
-      theme: ThemeData(primarySwatch: Colors.teal),
-      home: Lamina(),
-    );
+        title: 'aplicacion Todo List',
+        theme: ThemeData(primarySwatch: Colors.red),
+        home: Lamina());
   }
 }
 
@@ -25,9 +25,7 @@ class Estado extends State<Lamina> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Aplicacion Todo List'),
-      ),
+      body: Fondo_Pantalla(),
     );
   }
 }
