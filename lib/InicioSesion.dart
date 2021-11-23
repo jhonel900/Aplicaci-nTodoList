@@ -16,14 +16,14 @@ class Inicio_Sesion extends StatelessWidget {
             decoration: new BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 gradient: new LinearGradient(colors: [
-                  Color.fromRGBO(18, 242, 195, 1.0),
-                  Color.fromRGBO(14, 145, 121, 1.0),
-                ], begin: Alignment(0.0, 0.0), end: Alignment(0.0, 1.0)),
+                  Color.fromRGBO(4, 250, 216, 1.0),
+                  Color.fromRGBO(14, 229, 210, 1.0),
+                ], begin: Alignment(0.0, 0.5), end: Alignment(0.0, 1.0)),
                 boxShadow: [
                   BoxShadow(
                       color: Color(0xFF101000),
-                      offset: Offset(-12, 12),
-                      blurRadius: 18)
+                      offset: Offset(5, 5),
+                      blurRadius: 2)
                 ]),
             width: 600,
             height: double.infinity,

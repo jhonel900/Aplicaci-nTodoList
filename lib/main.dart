@@ -23,6 +23,7 @@ class Lamina extends StatefulWidget {
 class Estado extends State<Lamina> {
   @override
   Widget build(BuildContext context) {
+    // ignore: todo
     // TODO: implement build
     return Scaffold(
       body: Fondo_Pantalla(),
