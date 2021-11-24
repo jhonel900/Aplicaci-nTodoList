@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'segundoPanel/tareas.dart';
 
 class Formulario extends StatefulWidget {
   @override
@@ -52,30 +53,36 @@ class _Formulario extends State<Formulario> {
           ],
         ),
         Expanded(child: TextField()),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.max,
             children: [
               ElevatedButton(
                 style: ButtonStyle(),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Tareas()));
+                },
                 child: Padding(
                   padding:
-                      EdgeInsets.only(right: 50, top: 20, bottom: 20, left: 50),
+                      EdgeInsets.only(right: 42, top: 20, bottom: 20, left: 42),
                   child: Text(
-                    'hola',
+                    'Ingresar',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               ElevatedButton(
                 style: ButtonStyle(),
                 onPressed: () {},
                 child: Padding(
                   padding:
-                      EdgeInsets.only(right: 50, top: 20, bottom: 20, left: 50),
+                      EdgeInsets.only(right: 30, top: 20, bottom: 20, left: 30),
                   child: Text(
-                    'hola',
+                    'Registrarse',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
