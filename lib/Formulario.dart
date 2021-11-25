@@ -60,8 +60,9 @@ class _Formulario extends State<Formulario> {
               ElevatedButton(
                 style: ButtonStyle(),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Tareas()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Tareas();
+                  }));
                 },
                 child: Padding(
                   padding:
