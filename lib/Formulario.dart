@@ -8,11 +8,19 @@ class Formulario extends StatefulWidget {
 }
 
 class _Formulario extends State<Formulario> {
+  Column? columna;
+  bool visibilidadIni = false;
+  void _cambio(bool visibilidad, String campo) {
+    setState(() {
+      if (campo == 'sesion') {
+        visibilidadIni = true;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // ignore: todo
-    // TODO: implement build
-    return Column(
+    return columna = Column(
       children: [
         SizedBox(
           height: 40,
