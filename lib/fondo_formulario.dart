@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:todolist/Formulario.dart';
+import 'package:todolist/formulario_sesion.dart';
 
-class Inicio_Sesion extends StatelessWidget {
+class FondoFormularioT extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -16,18 +16,18 @@ class Inicio_Sesion extends StatelessWidget {
             decoration: new BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 gradient: new LinearGradient(colors: [
-                  Color.fromRGBO(4, 250, 216, 1.0),
-                  Color.fromRGBO(14, 229, 210, 1.0),
+                  Color.fromRGBO(255, 253, 253, 1.0),
+                  Color.fromRGBO(250, 250, 250, 1.0),
                 ], begin: Alignment(0.0, 0.5), end: Alignment(0.0, 1.0)),
                 boxShadow: [
                   BoxShadow(
-                      color: Color(0xFF101000),
+                      color: Color.fromRGBO(162, 10, 10, 1.0),
                       offset: Offset(5, 5),
                       blurRadius: 2)
                 ]),
             width: 600,
             height: double.infinity,
-            child: Formulario()));
+            child: FormularioSesion()));
 
 /*
     return SafeArea(
