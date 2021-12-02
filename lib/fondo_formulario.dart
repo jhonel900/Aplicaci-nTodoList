@@ -27,7 +27,7 @@ class FondoFormularioT extends StatelessWidget {
                 ]),
             width: 600,
             height: double.infinity,
-            child: FormularioSesion()));
+            child: FormularioSesion(true)));
 
 /*
     return SafeArea(
