@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'fondo_pantalla.dart';
+import 'dart:async';
+
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 void main() {
   runApp(MyApp());

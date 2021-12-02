@@ -15,6 +15,8 @@ class _Formulario extends State<FormularioSesion> {
   bool visibilidadFormSesion = true;
   bool visibilidadBotonesTotal = false;
 
+  bool _visibleButtonIngresar = true;
+  bool _buttonRegistrar = true;
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -72,41 +74,48 @@ class _Formulario extends State<FormularioSesion> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
-            ElevatedButton(
-              style: ButtonStyle(),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Tareas();
-                }));
-              },
-              child: Padding(
-                padding:
-                    EdgeInsets.only(right: 42, top: 20, bottom: 20, left: 42),
-                child: Text(
-                  'Ingresar',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ),
+            Visibility(
+                visible: _visibleButtonIngresar,
+                child: ElevatedButton(
+                  style: ButtonStyle(),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Tareas();
+                    }));
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        right: 42, top: 20, bottom: 20, left: 42),
+                    child: Text(
+                      'Ingresar',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                )),
             SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-              style: ButtonStyle(),
-              onPressed: () {
-                setState(() {
-                  visibilidadFormSesion = false;
-                });
-              },
-              child: Padding(
-                padding:
-                    EdgeInsets.only(right: 30, top: 20, bottom: 20, left: 30),
-                child: Text(
-                  'Registrarse',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            )
+            Visibility(
+                visible: _buttonRegistrar,
+                child: ElevatedButton(
+                  style: ButtonStyle(),
+                  onPressed: () {
+                    setState(() {
+                      visibilidadFormSesion = false;
+                      _visibleButtonIngresar = false;
+                      _buttonRegistrar = false;
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        right: 30, top: 20, bottom: 20, left: 30),
+                    child: Text(
+                      'Registrarse',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ))
           ]),
     ]);
   }
