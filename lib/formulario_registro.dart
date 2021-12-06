@@ -9,6 +9,17 @@ class FormRegistro extends StatefulWidget {
 }
 
 class _FormRegistroState extends State<FormRegistro> {
+  final myControllerT = TextEditingController();
+  final myControllerP = TextEditingController();
+
+  @override
+  void dispose() {
+    // Limpia el controlador cuando el Widget se descarte
+    myControllerT.dispose();
+    myControllerP.dispose();
+    super.dispose();
+  }
+
   bool g = true;
   @override
   Widget build(BuildContext context) {
@@ -38,11 +49,12 @@ class _FormRegistroState extends State<FormRegistro> {
                             )
                           ]),
                           TextField(
+                              controller: myControllerT,
                               decoration: InputDecoration(
-                            icon: Icon(Icons.person),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                          )),
+                                icon: Icon(Icons.person),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              )),
                         ]))),
             Padding(
               padding: EdgeInsets.all(10),
@@ -62,6 +74,7 @@ class _FormRegistroState extends State<FormRegistro> {
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: TextField(
+                          controller: myControllerP,
                           maxLength: 10,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -72,7 +85,9 @@ class _FormRegistroState extends State<FormRegistro> {
                     ),
                     ElevatedButton(
                       style: ButtonStyle(),
-                      onPressed: () {},
+                      onPressed: () {
+                        print(myControllerT.text + myControllerP.text);
+                      },
                       child: Padding(
                         padding: EdgeInsets.only(
                             right: 30, top: 20, bottom: 20, left: 30),
