@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:todolist/formulario_registro.dart';
 import 'package:todolist/formulario_sesion.dart';
 
 class FondoFormularioT extends StatelessWidget {
@@ -27,7 +28,7 @@ class FondoFormularioT extends StatelessWidget {
                 ]),
             width: 600,
             height: double.infinity,
-            child: FormularioSesion(true)));
+            child: FormularioSesion(true, CounterStorage())));
 
 /*
     return SafeArea(

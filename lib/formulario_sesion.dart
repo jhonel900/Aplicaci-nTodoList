@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:todolist/formulario_registro.dart';
-import 'segundoPanel/tareas.dart';
 
 class FormularioSesion extends StatefulWidget {
+  late CounterStorage storage;
   bool visibilidadFormSesion = true;
   static bool v = true;
-  FormularioSesion(bool visibilidadFormSesion) {
+  FormularioSesion(bool visibilidadFormSesion, CounterStorage counterStorage) {
     this.visibilidadFormSesion = visibilidadFormSesion;
+    storage = counterStorage;
   }
   @override
   _Formulario createState() => _Formulario(v);
 }
 
 class _Formulario extends State<FormularioSesion> {
+  var textU;
+  String nom = '';
+  String pass = '';
+  var comple;
+  var div;
   bool visibilidadFormSesion = true;
   bool visibleFormRegistroIn = false;
 
   _Formulario(bool visib) {
     this.visibilidadFormSesion = visib;
+    textU = CounterStorage();
   }
   Column? columnaTotal;
   Column? columnaBotones;
@@ -79,7 +86,9 @@ class _Formulario extends State<FormularioSesion> {
                   ),
                   TextField(),
                 ])
-              : FormRegistro(),
+              : FormRegistro(
+                  storage: widget.storage,
+                ),
           SizedBox(
             height: 20,
           ),
@@ -92,10 +101,12 @@ class _Formulario extends State<FormularioSesion> {
                     child: ElevatedButton(
                       style: ButtonStyle(),
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Tareas();
-                        }));
+                        widget.storage.readCounter().then((value) {
+                          comple = value.toString();
+                          div = comple.split(',');
+                          print(div);
+                          print(comple);
+                        });
                       },
                       child: Padding(
                         padding: EdgeInsets.only(

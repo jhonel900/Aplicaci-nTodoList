@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/formulario_sesion.dart';
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 class FormRegistro extends StatefulWidget {
-  FormRegistro({Key? key}) : super(key: key);
+  const FormRegistro({Key? key, required this.storage}) : super(key: key);
+
+  final CounterStorage storage;
 
   @override
   _FormRegistroState createState() => _FormRegistroState();
 }
 
 class _FormRegistroState extends State<FormRegistro> {
+  String usuario = '';
+  String aux = '';
   final myControllerT = TextEditingController();
   final myControllerP = TextEditingController();
 
@@ -18,6 +26,17 @@ class _FormRegistroState extends State<FormRegistro> {
     myControllerT.dispose();
     myControllerP.dispose();
     super.dispose();
+  }
+
+  void _agregarUsuario() {
+    setState(() {
+      usuario = myControllerT.text + "," + myControllerP.text;
+      var a = widget.storage.readCounter().then((value) {
+        usuario = value + usuario + ',';
+        print(usuario);
+        widget.storage.writeCounter(usuario);
+      });
+    });
   }
 
   bool g = true;
@@ -86,7 +105,9 @@ class _FormRegistroState extends State<FormRegistro> {
                     ElevatedButton(
                       style: ButtonStyle(),
                       onPressed: () {
-                        print(myControllerT.text + myControllerP.text);
+                        _agregarUsuario();
+                        myControllerP.clear();
+                        myControllerT.clear();
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
@@ -103,5 +124,39 @@ class _FormRegistroState extends State<FormRegistro> {
             ),
           ],
         ));
+  }
+}
+
+class CounterStorage {
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File('$path/usuario.txt');
+  }
+
+  Future<String> readCounter() async {
+    try {
+      final file = await _localFile;
+
+      // Read the file
+      final contents = await file.readAsString();
+
+      return contents;
+    } catch (e) {
+      // If encountering an error, return 0
+      return "";
+    }
+  }
+
+  Future<File> writeCounter(String? counter) async {
+    final file = await _localFile;
+
+    // Write the file
+    return file.writeAsString('$counter');
   }
 }
