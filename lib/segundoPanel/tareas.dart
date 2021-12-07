@@ -16,6 +16,7 @@ class PanelTareas extends StatefulWidget {
 }
 
 class _PanelTareas extends State<PanelTareas> {
+  final myControllerTarea = TextEditingController();
   int cont = 1;
   List<DataRow> lista = [
     DataRow(cells: [
@@ -54,7 +55,30 @@ class _PanelTareas extends State<PanelTareas> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(onPressed: () {}, child: Text('Nueva Tarea'))
+            ElevatedButton(
+                onPressed: () {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Nueva Tarea'),
+                      content: Expanded(
+                          child: TextField(
+                        controller: myControllerTarea,
+                      )),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancelar'),
+                          child: const Text('Cancelar'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'agregar'),
+                          child: const Text('agregar'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: Text('Nueva Tarea'))
           ],
         ),
       ]),
@@ -63,6 +87,22 @@ class _PanelTareas extends State<PanelTareas> {
 
   List<DataRow> getlist() {
     return lista;
+  }
+
+  void insertarTarea(
+    String tarea,
+  ) {
+    setState(() {
+      lista.add(
+        DataRow(cells: [
+          DataCell(
+            Text((lista.length + 1).toString()),
+          ),
+          DataCell(Text('Lavar Choche')),
+          DataCell(Text('nulo'))
+        ]),
+      );
+    });
   }
 
   ElevatedButton botonEditar() {
