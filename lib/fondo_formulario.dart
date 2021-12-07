@@ -6,6 +6,7 @@ import 'package:todolist/formulario_registro.dart';
 import 'package:todolist/formulario_sesion.dart';
 
 class FondoFormularioT extends StatelessWidget {
+  final u = RegistroUsers();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -28,7 +29,7 @@ class FondoFormularioT extends StatelessWidget {
                 ]),
             width: 600,
             height: double.infinity,
-            child: FormularioSesion(true, CounterStorage())));
+            child: FormularioSesion(true, u)));
 
 /*
     return SafeArea(

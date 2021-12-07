@@ -4,18 +4,20 @@ import 'package:todolist/formulario_registro.dart';
 import 'package:todolist/segundoPanel/tareas.dart';
 
 class FormularioSesion extends StatefulWidget {
-  late CounterStorage storage;
+  late RegistroUsers usuariosR;
   bool visibilidadFormSesion = true;
   static bool v = true;
-  FormularioSesion(bool visibilidadFormSesion, CounterStorage counterStorage) {
+  FormularioSesion(bool visibilidadFormSesion, RegistroUsers counterStorage) {
     this.visibilidadFormSesion = visibilidadFormSesion;
-    storage = counterStorage;
+    usuariosR = counterStorage;
   }
   @override
   _Formulario createState() => _Formulario(v);
 }
 
 class _Formulario extends State<FormularioSesion> {
+  final userC = TextEditingController();
+  final passC = TextEditingController();
   var textU;
   String nom = '';
   String pass = '';
@@ -26,7 +28,7 @@ class _Formulario extends State<FormularioSesion> {
 
   _Formulario(bool visib) {
     this.visibilidadFormSesion = visib;
-    textU = CounterStorage();
+    textU = RegistroUsers();
   }
   Column? columnaTotal;
   Column? columnaBotones;
@@ -51,6 +53,7 @@ class _Formulario extends State<FormularioSesion> {
                       Text(
                         'TODO LISTA',
                         style: TextStyle(
+                            letterSpacing: 6,
                             fontSize: 34,
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(69, 69, 69, 0.9),
@@ -69,26 +72,35 @@ class _Formulario extends State<FormularioSesion> {
                   ),
                   Row(children: [
                     Text(
-                      'Usuario :',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      'USUARIO :',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2),
                     )
                   ]),
-                  TextField(),
+                  TextField(
+                    controller: userC,
+                  ),
                   SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: [
-                      Text('Constraseña',
+                      Text('CONTRASEÑA',
                           style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold))
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2))
                     ],
                   ),
-                  TextField(),
+                  TextField(
+                    controller: passC,
+                    obscureText: true,
+                  ),
                 ])
               : FormRegistro(
-                  storage: widget.storage,
+                  storage: widget.usuariosR,
                 ),
           SizedBox(
             height: 20,
@@ -102,21 +114,62 @@ class _Formulario extends State<FormularioSesion> {
                     child: ElevatedButton(
                       style: ButtonStyle(),
                       onPressed: () {
-                        widget.storage.readCounter().then((value) {
+                        widget.usuariosR.readCounter().then((value) {
                           comple = value.toString();
-                          div = comple.split(',');
-                          print(div);
-                          print(comple);
+                          List a = comple.split(',');
+                          a.removeLast();
+                          print(a);
+                          print(a.length);
+                          print(a.contains(userC.text));
+                          if (a.contains(userC.text) == true) {
+                            print('contiene');
+                            if (a.contains(passC.text)) {
+                              limpiar();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Tareas()));
+                            } else {
+                              limpiar();
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text(
+                                      'Alerta usuario o contraseña invalidos'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          } else {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text(
+                                    'Alerta usuario o contraseña invalidos'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                         });
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Tareas()));
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
                             right: 42, top: 20, bottom: 20, left: 42),
                         child: Text(
                           'Ingresar',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20, letterSpacing: 3),
                         ),
                       ),
                     )),
@@ -140,7 +193,7 @@ class _Formulario extends State<FormularioSesion> {
                             right: 30, top: 20, bottom: 20, left: 30),
                         child: Text(
                           'Registrarse',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20, letterSpacing: 3),
                         ),
                       ),
                     )),
@@ -169,5 +222,10 @@ class _Formulario extends State<FormularioSesion> {
                         ))),
               ]),
         ]));
+  }
+
+  void limpiar() {
+    userC.clear();
+    passC.clear();
   }
 }

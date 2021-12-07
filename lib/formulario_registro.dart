@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 class FormRegistro extends StatefulWidget {
   const FormRegistro({Key? key, required this.storage}) : super(key: key);
 
-  final CounterStorage storage;
+  final RegistroUsers storage;
 
   @override
   _FormRegistroState createState() => _FormRegistroState();
@@ -106,8 +106,29 @@ class _FormRegistroState extends State<FormRegistro> {
                       style: ButtonStyle(),
                       onPressed: () {
                         _agregarUsuario();
-                        myControllerP.clear();
-                        myControllerT.clear();
+                        //     widget.storage.writeCounter('');
+
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('usuario agregado'),
+                            content: Text("usuario: " +
+                                myControllerT.text +
+                                "\n" +
+                                "contraseña: " +
+                                myControllerP.text),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  myControllerP.clear();
+                                  myControllerT.clear();
+                                  Navigator.pop(context, 'OK');
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
@@ -127,7 +148,7 @@ class _FormRegistroState extends State<FormRegistro> {
   }
 }
 
-class CounterStorage {
+class RegistroUsers {
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
