@@ -16,49 +16,71 @@ class PanelTareas extends StatefulWidget {
 }
 
 class _PanelTareas extends State<PanelTareas> {
+  int cont = 1;
+  List<DataRow> lista = [
+    DataRow(cells: [
+      DataCell(
+        Text('1'),
+      ),
+      DataCell(Text('Lavar Choche')),
+      DataCell(Text('nulo'))
+    ]),
+    DataRow(cells: [
+      DataCell(
+        Text('1'),
+      ),
+      DataCell(Text('Lavar Choche')),
+      DataCell(Text('nulo'))
+    ])
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
             child: Container(
       width: MediaQuery.of(context).size.width,
-      child: DataTable(
-        sortColumnIndex: 2,
-        sortAscending: false,
-        columns: [
-          DataColumn(label: Text('id'), numeric: true),
-          DataColumn(label: Text('tarea')),
-          DataColumn(
-            label: Text('Accion'),
-          ),
-        ],
-        rows: [
-          DataRow(selected: true, cells: [
-            DataCell(
-              Text('1'),
-            ),
-            DataCell(Text('Lavar Choche')),
-            DataCell(Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                ElevatedButton(onPressed: () {}, child: Text('editar')),
-                ElevatedButton(onPressed: () {}, child: Text('Borrar'))
-              ],
-            ))
-          ]),
-          DataRow(cells: [
-            DataCell(Text('2')),
-            DataCell(Text('renovar Dni')),
-            DataCell(Text('nulo'))
-          ]),
-          DataRow(cells: [
-            DataCell(Text('3')),
-            DataCell(Text('Limpiar Casa')),
-            DataCell(Text('nullo'))
-          ])
-        ],
-      ),
+      child: Column(children: [
+        DataTable(
+            sortColumnIndex: 2,
+            sortAscending: false,
+            columns: [
+              DataColumn(label: Text('id'), numeric: true),
+              DataColumn(label: Text('tarea')),
+              DataColumn(
+                label: Text('Accion'),
+              ),
+            ],
+            rows: lista),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: () {}, child: Text('Nueva Tarea'))
+          ],
+        ),
+      ]),
     )));
+  }
+
+  List<DataRow> getlist() {
+    return lista;
+  }
+
+  ElevatedButton botonEditar() {
+    return ElevatedButton(onPressed: () {}, child: Text('editar'));
+  }
+
+  ElevatedButton botonBorrar() {
+    return ElevatedButton(onPressed: () {}, child: Text('borrar'));
+  }
+
+  Row filabotones() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        botonEditar(),
+        botonBorrar(),
+      ],
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:todolist/formulario_registro.dart';
+import 'package:todolist/segundoPanel/tareas.dart';
 
 class FormularioSesion extends StatefulWidget {
   late CounterStorage storage;
@@ -107,6 +108,8 @@ class _Formulario extends State<FormularioSesion> {
                           print(div);
                           print(comple);
                         });
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Tareas()));
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
